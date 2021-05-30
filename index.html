@@ -42,17 +42,17 @@
   </fieldset>
 
   <section id="error-btns">
-    <button>Console Log Demo</button>
-    <button>Console Error Demo</button>
-    <button>Console Dir</button>
-    <button>Console dirxml</button>
-    <button>Console Group Start</button>
-    <button>Console Group End</button>
-    <button>Console Table</button>
-    <button>Start Timer</button>
-    <button>End Timer</button>
-    <button>Console Trace</button>
-    <button>Trigger a Global Error</button>
+    <button id="log">Console Log Demo</button>
+    <button id="error">Console Error Demo</button>
+    <button id="dir">Console Dir</button>
+    <button id="dirxml">Console dirxml</button>
+    <button id="group_start">Console Group Start</button>
+    <button id="group_end">Console Group End</button>
+    <button id="table">Console Table</button>
+    <button id="start_timer">Start Timer</button>
+    <button id="end_timer">End Timer</button>
+    <button id="trace">Console Trace</button>
+    <button id="global_error">Trigger a Global Error</button>
   </section>
 
   <script>
@@ -67,6 +67,75 @@
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
     // TODO - Make buttons functional
+
+    // Console Log Demo
+    let clog = document.getElementById("log");
+    clog.addEventListener('click', function() {
+      console.log('Console Log Demo');
+    });
+
+    // Console Error Demo
+    let cerror = document.getElementById("error");
+    cerror.addEventListener('click', function() {
+      console.error("Console Error doesn't work");
+    });
+
+    // Console Dir
+    let cdir = document.getElementById("dir");
+    cdir.addEventListener('click', function() {
+      console.dir(calculateBtn);
+    });
+
+    // Console dirxml
+    let cdirxml = document.getElementById("dirxml");
+    cdirxml.addEventListener('click', function() {
+      console.dirxml(document);
+    });
+
+
+    const label = "deez buttons OwO";
+    
+    // Console Group Start
+    let cgroupstart = document.getElementById("group_start");
+    cgroupstart.addEventListener('click', function() {
+      console.group(label);
+    });
+
+    // Console Group End
+    let cgroupend = document.getElementById("group_end");
+    cgroupend.addEventListener('click', function() {
+      console.groupEnd(label);
+    });
+
+    // Console Table
+    let ctable = document.getElementById("table");
+    ctable.addEventListener('click', function() {
+
+    });
+
+    // Start Timer
+    let cstarttimer = document.getElementById("start_timer");
+    cstarttimer.addEventListener('click', function() {
+
+    });
+
+    // End Timer
+    let cendtimer = document.getElementById("end_timer");
+    cendtimer.addEventListener('click', function() {
+
+    });
+
+    // Console Trace
+    let ctrace = document.getElementById("trace");
+    ctrace.addEventListener('click', function() {
+
+    });
+
+    // Trigger a Global Error
+    let globalerror = document.getElementById("global_error");
+    globalerror.addEventListener('click', function() {
+
+    });
   </script>
 </body>
 </html>
