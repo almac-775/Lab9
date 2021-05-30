@@ -55,14 +55,44 @@
     <button id="global_error">Trigger a Global Error</button>
   </section>
 
+<script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+<script>
+  window.TrackJS && TrackJS.install({ 
+    token: "911c0f6d5edd409b84a0f751c352a6a5"
+    // for more configuration options, see https://docs.trackjs.com
+  });
+</script>
+                        
   <script>
+    class ValidationError extends Error {
+      constructor(message) {
+        super(message); // (1)
+        this.name = "ValidationError"; // (2)
+      }
+    }
+
     let calculateBtn = document.querySelector('#calculate');
     calculateBtn.addEventListener('click', () => {
-      let output = document.querySelector('output');
+      
+      // let output = document.querySelector('output');
       let firstNum = document.querySelector('#first-num').value;
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+
+      try {
+        if (firstNum == "") {
+          throw new ValidationError("No first num");
+        }
+        if (typeof output === 'undefined') {
+          let error = new SyntaxError("Output not defined");
+          throw error;
+        }
+        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      } catch (err) {
+        alert( "Error: " + err.message);
+      } finally {
+        alert("Finished try");
+      }
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
@@ -110,31 +140,46 @@
     // Console Table
     let ctable = document.getElementById("table");
     ctable.addEventListener('click', function() {
-
+      console.table ([
+        {output: document.querySelector('output')}, 
+        {firstnum: document.querySelector('#first-num')}, 
+        {secondnum: document.querySelector('#second-num')}
+      ]);
     });
 
     // Start Timer
     let cstarttimer = document.getElementById("start_timer");
     cstarttimer.addEventListener('click', function() {
-
+      console.time();
     });
 
     // End Timer
     let cendtimer = document.getElementById("end_timer");
     cendtimer.addEventListener('click', function() {
-
+      console.timeEnd();
     });
 
     // Console Trace
     let ctrace = document.getElementById("trace");
     ctrace.addEventListener('click', function() {
-
+      console.trace();
     });
 
     // Trigger a Global Error
     let globalerror = document.getElementById("global_error");
     globalerror.addEventListener('click', function() {
+      try {
+        if (thirdNum == "") {
+          throw new ValidationError("No third num");
+        }
+      } catch(err) {
+        console.error( "Error: " + err.message);
+      }
 
+      window.onerror = function (message, source, lineo, colno, error) {
+        TrackJS.track('Testing TrackJS!');
+        console.log("Sadly an error happened friend");
+      }
     });
   </script>
 </body>
